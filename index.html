@@ -9,7 +9,9 @@
 <body>
   <div class="container">
     <h1>Speed Reader</h1>
+    
     <textarea id="inputText" placeholder="Pega tu texto aquí..."></textarea>
+    
     <div class="controls">
       <label for="speed">Velocidad (palabras por minuto):</label>
       <input type="number" id="speed" value="300" min="50" max="2000" />
@@ -17,8 +19,12 @@
       <button id="pauseBtn">Pausar</button>
       <button id="resumeBtn">Reanudar</button>
       <button id="resetBtn">Reset</button>
-      <div id="speedDisplay">Velocidad actual: 0 WPM</div>
     </div>
+
+    <!-- Mueve el indicador de velocidad AQUÍ, fuera de .controls -->
+    <div id="speedDisplay">Velocidad actual: 0 WPM</div>
+
+    <!-- Contenedor para mostrar palabras o bloques -->
     <div id="wordDisplay"></div>
   </div>
 
