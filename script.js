@@ -1,11 +1,11 @@
 let words = [];
 let index = 0;
 let isPaused = false;
-let baseWPM = 300; // Velocidad inicial
+let baseWPM = 300;
 let currentWPM = baseWPM;
-let maxWPM = 600;  // Velocidad máxima
-let increaseStep = 10; // Incremento por ciclo
-let increaseEvery = 20; // Cada cuántos chunks subir velocidad
+let maxWPM = 600;
+let increaseStep = 10;
+let increaseEvery = 20;
 
 const inputText = document.getElementById("inputText");
 const speedInput = document.getElementById("speed");
@@ -14,6 +14,17 @@ const pauseBtn = document.getElementById("pauseBtn");
 const resumeBtn = document.getElementById("resumeBtn");
 const resetBtn = document.getElementById("resetBtn");
 const wordDisplay = document.getElementById("wordDisplay");
+const speedDisplay = document.getElementById("speedDisplay");
+
+// Cargar texto y velocidad guardados al inicio
+window.onload = () => {
+  if (localStorage.getItem("savedText")) {
+    inputText.value = localStorage.getItem("savedText");
+  }
+  if (localStorage.getItem("savedWPM")) {
+    speedInput.value = localStorage.getItem("savedWPM");
+  }
+};
 
 startBtn.addEventListener("click", startReading);
 pauseBtn.addEventListener("click", pauseReading);
@@ -26,6 +37,12 @@ function startReading() {
   isPaused = false;
   baseWPM = parseInt(speedInput.value);
   currentWPM = baseWPM;
+
+  // Guardar en localStorage
+  localStorage.setItem("savedText", inputText.value);
+  localStorage.setItem("savedWPM", baseWPM);
+
+  updateSpeedDisplay();
   showNextChunk();
 }
 
@@ -43,10 +60,8 @@ function showNextChunk() {
   const chunk = getNextChunk();
   wordDisplay.textContent = chunk.join(' ');
 
-  // Base delay en milisegundos por palabra
   let baseDelay = 60000 / currentWPM;
 
-  // Ajusta por puntuación
   let lastWord = chunk[chunk.length - 1];
   let delayMultiplier = 1;
 
@@ -58,29 +73,41 @@ function showNextChunk() {
     }
   }
 
-  // Cada X chunks, sube velocidad
   if (index % increaseEvery === 0 && currentWPM < maxWPM) {
     currentWPM += increaseStep;
-    console.log(`Nueva WPM: ${currentWPM}`);
   }
+
+  updateSpeedDisplay();
 
   setTimeout(showNextChunk, baseDelay * delayMultiplier * chunk.length);
 }
 
 function getNextChunk() {
   const chunk = [];
-  let maxChunkSize = 3; // Máximo palabras por bloque
+  let maxChunkSize = 3;
+
   while (index < words.length && chunk.length < maxChunkSize) {
-    chunk.push(words[index]);
-    let last = words[index];
+    let word = words[index];
+    chunk.push(word);
     index++;
 
-    // Si la palabra termina en punto o coma, corta el chunk aquí
-    if (/[,.!?]$/.test(last)) {
+    // Corta si termina en puntuación fuerte
+    if (/[,.!?]$/.test(word)) {
       break;
+    }
+
+    // Si la siguiente palabra es un conector, agrégala
+    if (index < words.length && isConnector(words[index])) {
+      chunk.push(words[index]);
+      index++;
     }
   }
   return chunk;
+}
+
+function isConnector(word) {
+  const connectors = ["de", "la", "el", "en", "y", "a", "con", "por", "para", "que", "del"];
+  return connectors.includes(word.toLowerCase());
 }
 
 function pauseReading() {
@@ -95,4 +122,9 @@ function resetReading() {
   index = 0;
   currentWPM = baseWPM;
   wordDisplay.textContent = "";
+  updateSpeedDisplay();
+}
+
+function updateSpeedDisplay() {
+  speedDisplay.textContent = `Velocidad actual: ${Math.round(currentWPM)} WPM`;
 }
