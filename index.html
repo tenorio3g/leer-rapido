@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Speed Reader</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Speed Reader</h1>
+    <textarea id="inputText" placeholder="Pega tu texto aquí..."></textarea>
+    <div class="controls">
+      <label for="speed">Velocidad (palabras por minuto):</label>
+      <input type="number" id="speed" value="300" min="50" max="2000" />
+      <button id="startBtn">Empezar</button>
+      <button id="pauseBtn">Pausar</button>
+      <button id="resumeBtn">Reanudar</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+    <div id="wordDisplay"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
