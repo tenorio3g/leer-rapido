@@ -1,7 +1,11 @@
 let words = [];
 let index = 0;
-let interval = null;
 let isPaused = false;
+let baseWPM = 300; // Velocidad inicial
+let currentWPM = baseWPM;
+let maxWPM = 600;  // Velocidad máxima
+let increaseStep = 10; // Incremento por ciclo
+let increaseEvery = 20; // Cada cuántos chunks subir velocidad
 
 const inputText = document.getElementById("inputText");
 const speedInput = document.getElementById("speed");
@@ -20,19 +24,63 @@ function startReading() {
   words = inputText.value.trim().split(/\s+/);
   index = 0;
   isPaused = false;
-  const wpm = parseInt(speedInput.value);
-  const intervalTime = 60000 / wpm;
+  baseWPM = parseInt(speedInput.value);
+  currentWPM = baseWPM;
+  showNextChunk();
+}
 
-  if (interval) clearInterval(interval);
+function showNextChunk() {
+  if (index >= words.length) {
+    wordDisplay.textContent = "[FIN]";
+    return;
+  }
 
-  interval = setInterval(() => {
-    if (!isPaused && index < words.length) {
-      wordDisplay.textContent = words[index];
-      index++;
-    } else if (index >= words.length) {
-      clearInterval(interval);
+  if (isPaused) {
+    setTimeout(showNextChunk, 200);
+    return;
+  }
+
+  const chunk = getNextChunk();
+  wordDisplay.textContent = chunk.join(' ');
+
+  // Base delay en milisegundos por palabra
+  let baseDelay = 60000 / currentWPM;
+
+  // Ajusta por puntuación
+  let lastWord = chunk[chunk.length - 1];
+  let delayMultiplier = 1;
+
+  if (/[,.!?]$/.test(lastWord)) {
+    if (lastWord.endsWith(',')) {
+      delayMultiplier = 1.3;
+    } else {
+      delayMultiplier = 1.6;
     }
-  }, intervalTime);
+  }
+
+  // Cada X chunks, sube velocidad
+  if (index % increaseEvery === 0 && currentWPM < maxWPM) {
+    currentWPM += increaseStep;
+    console.log(`Nueva WPM: ${currentWPM}`);
+  }
+
+  setTimeout(showNextChunk, baseDelay * delayMultiplier * chunk.length);
+}
+
+function getNextChunk() {
+  const chunk = [];
+  let maxChunkSize = 3; // Máximo palabras por bloque
+  while (index < words.length && chunk.length < maxChunkSize) {
+    chunk.push(words[index]);
+    let last = words[index];
+    index++;
+
+    // Si la palabra termina en punto o coma, corta el chunk aquí
+    if (/[,.!?]$/.test(last)) {
+      break;
+    }
+  }
+  return chunk;
 }
 
 function pauseReading() {
@@ -44,7 +92,7 @@ function resumeReading() {
 }
 
 function resetReading() {
-  clearInterval(interval);
   index = 0;
+  currentWPM = baseWPM;
   wordDisplay.textContent = "";
 }
