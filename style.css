@@ -92,10 +92,7 @@ button:active {
   z-index: 1001;
   width: 500px;    /* ancho fijo */
   height: 300px;   /* alto fijo */
-  display: flex;           /* para centrar el contenido */
-  flex-direction: column;  /* acomodo vertical */
-  justify-content: center; /* centra verticalmente */
-  align-items: center;     /* centra horizontalmente */
+
 }
 
 
