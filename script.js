@@ -17,12 +17,13 @@ const wordDisplay = document.getElementById("wordDisplay");
 const speedDisplay = document.getElementById("speedDisplay");
 
 window.onload = () => {
-  // Mostrar solo los controles iniciales
+  // Asegura que pantalla flotante inicie oculta
+  document.getElementById('floatingScreen').classList.add('hidden');
+  // Asegura que controles iniciales estén visibles
   document.querySelector('.controls').classList.remove('hidden');
   inputText.classList.remove('hidden');
-  document.getElementById('floatingScreen').classList.add('hidden');
 
-  // Recupera texto y velocidad guardados
+  // Recupera guardado
   if (localStorage.getItem("savedText")) {
     inputText.value = localStorage.getItem("savedText");
   }
@@ -48,11 +49,8 @@ function startReading() {
 
   updateSpeedDisplay();
 
-  // Oculta controles y textarea
   document.querySelector('.controls').classList.add('hidden');
   inputText.classList.add('hidden');
-
-  // Muestra visor flotante
   document.getElementById('floatingScreen').classList.remove('hidden');
 
   showNextChunk();
@@ -134,11 +132,8 @@ function resetReading() {
   wordDisplay.textContent = "";
   updateSpeedDisplay();
 
-  // Muestra controles iniciales
   document.querySelector('.controls').classList.remove('hidden');
   inputText.classList.remove('hidden');
-
-  // Oculta visor flotante
   document.getElementById('floatingScreen').classList.add('hidden');
 }
 
