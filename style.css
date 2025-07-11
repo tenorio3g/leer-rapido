@@ -79,7 +79,7 @@ button:active {
   margin-top: 20px;
 }
 
-/* Cuadro flotante */
+/* Cuadro flotante con tamaño fijo */
 #floatingScreen {
   position: fixed;
   top: 50%;
@@ -90,6 +90,11 @@ button:active {
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
   z-index: 1001;
+  width: 500px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Fondo oscurecido */
