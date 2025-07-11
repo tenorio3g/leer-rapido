@@ -18,11 +18,15 @@ const speedDisplay = document.getElementById("speedDisplay");
 const overlay = document.getElementById("overlay");
 
 window.onload = () => {
+  // Ocultar cuadro flotante y overlay al inicio
   document.getElementById('floatingScreen').classList.add('hidden');
-  document.querySelector('.controls').classList.remove('hidden');
-  inputText.classList.remove('hidden');
   overlay.classList.add('hidden');
 
+  // Mostrar controles y textarea
+  document.querySelector('.controls').classList.remove('hidden');
+  inputText.classList.remove('hidden');
+
+  // Recuperar datos guardados
   if (localStorage.getItem("savedText")) {
     inputText.value = localStorage.getItem("savedText");
   }
@@ -48,8 +52,11 @@ function startReading() {
 
   updateSpeedDisplay();
 
+  // Ocultar controles y textarea
   document.querySelector('.controls').classList.add('hidden');
   inputText.classList.add('hidden');
+
+  // Mostrar cuadro flotante y overlay
   document.getElementById('floatingScreen').classList.remove('hidden');
   overlay.classList.remove('hidden');
 
@@ -131,8 +138,11 @@ function resetReading() {
   wordDisplay.textContent = "";
   updateSpeedDisplay();
 
+  // Mostrar controles y textarea
   document.querySelector('.controls').classList.remove('hidden');
   inputText.classList.remove('hidden');
+
+  // Ocultar cuadro flotante y overlay
   document.getElementById('floatingScreen').classList.add('hidden');
   overlay.classList.add('hidden');
 }
