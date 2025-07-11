@@ -16,7 +16,6 @@ const resetBtn = document.getElementById("resetBtn");
 const wordDisplay = document.getElementById("wordDisplay");
 const speedDisplay = document.getElementById("speedDisplay");
 
-// Cargar texto y velocidad guardados al inicio
 window.onload = () => {
   if (localStorage.getItem("savedText")) {
     inputText.value = localStorage.getItem("savedText");
@@ -38,11 +37,15 @@ function startReading() {
   baseWPM = parseInt(speedInput.value);
   currentWPM = baseWPM;
 
-  // Guardar en localStorage
   localStorage.setItem("savedText", inputText.value);
   localStorage.setItem("savedWPM", baseWPM);
 
   updateSpeedDisplay();
+
+  document.querySelector('.controls').classList.add('hidden');
+  inputText.classList.add('hidden');
+  document.getElementById('floatingScreen').classList.remove('hidden');
+
   showNextChunk();
 }
 
@@ -91,12 +94,10 @@ function getNextChunk() {
     chunk.push(word);
     index++;
 
-    // Corta si termina en puntuación fuerte
     if (/[,.!?]$/.test(word)) {
       break;
     }
 
-    // Si la siguiente palabra es un conector, agrégala
     if (index < words.length && isConnector(words[index])) {
       chunk.push(words[index]);
       index++;
@@ -123,6 +124,10 @@ function resetReading() {
   currentWPM = baseWPM;
   wordDisplay.textContent = "";
   updateSpeedDisplay();
+
+  document.querySelector('.controls').classList.remove('hidden');
+  inputText.classList.remove('hidden');
+  document.getElementById('floatingScreen').classList.add('hidden');
 }
 
 function updateSpeedDisplay() {
