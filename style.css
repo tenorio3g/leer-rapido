@@ -1,4 +1,3 @@
-/* Fondo general y tipografía */
 body {
   font-family: 'Arial', sans-serif;
   background: #111;
@@ -8,19 +7,16 @@ body {
   margin: 0;
 }
 
-/* Contenedor centrado */
 .container {
   max-width: 600px;
   margin: 0 auto;
 }
 
-/* Título */
 h1 {
   font-size: 32px;
   margin-bottom: 20px;
 }
 
-/* Área de texto */
 textarea {
   width: 100%;
   height: 150px;
@@ -33,12 +29,10 @@ textarea {
   resize: vertical;
 }
 
-/* Controles */
 .controls {
   margin: 20px 0;
 }
 
-/* Inputs */
 input[type="number"] {
   width: 80px;
   padding: 8px;
@@ -49,7 +43,6 @@ input[type="number"] {
   border-radius: 6px;
 }
 
-/* Botones */
 button {
   background: #333;
   color: #fff;
@@ -70,14 +63,12 @@ button:active {
   transform: scale(0.98);
 }
 
-/* Velocidad actual */
 #speedDisplay {
   margin: 20px 0;
   font-size: 20px;
   font-weight: bold;
 }
 
-/* Palabra/chunk mostrado */
 #wordDisplay {
   font-size: 48px;
   font-weight: bold;
@@ -86,4 +77,33 @@ button:active {
   align-items: center;
   justify-content: center;
   margin-top: 20px;
+}
+
+/* Cuadro flotante */
+#floatingScreen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #1c1c1c;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+  z-index: 1001;
+}
+
+/* Fondo oscurecido */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+}
+
+/* Ocultar elementos */
+.hidden {
+  display: none;
 }

@@ -15,15 +15,14 @@ const resumeBtn = document.getElementById("resumeBtn");
 const resetBtn = document.getElementById("resetBtn");
 const wordDisplay = document.getElementById("wordDisplay");
 const speedDisplay = document.getElementById("speedDisplay");
+const overlay = document.getElementById("overlay");
 
 window.onload = () => {
-  // Asegura que pantalla flotante inicie oculta
   document.getElementById('floatingScreen').classList.add('hidden');
-  // Asegura que controles iniciales estén visibles
   document.querySelector('.controls').classList.remove('hidden');
   inputText.classList.remove('hidden');
+  overlay.classList.add('hidden');
 
-  // Recupera guardado
   if (localStorage.getItem("savedText")) {
     inputText.value = localStorage.getItem("savedText");
   }
@@ -52,6 +51,7 @@ function startReading() {
   document.querySelector('.controls').classList.add('hidden');
   inputText.classList.add('hidden');
   document.getElementById('floatingScreen').classList.remove('hidden');
+  overlay.classList.remove('hidden');
 
   showNextChunk();
 }
@@ -71,7 +71,6 @@ function showNextChunk() {
   wordDisplay.textContent = chunk.join(' ');
 
   let baseDelay = 60000 / currentWPM;
-
   let lastWord = chunk[chunk.length - 1];
   let delayMultiplier = 1;
 
@@ -135,6 +134,7 @@ function resetReading() {
   document.querySelector('.controls').classList.remove('hidden');
   inputText.classList.remove('hidden');
   document.getElementById('floatingScreen').classList.add('hidden');
+  overlay.classList.add('hidden');
 }
 
 function updateSpeedDisplay() {

@@ -19,18 +19,20 @@
       <input type="number" id="speed" value="300" min="50" max="2000" />
       <button id="startBtn">Empezar</button>
     </div>
+  </div>
 
-    <!-- PANTALLA FLOTANTE DE LECTURA -->
-    <div id="floatingScreen" class="hidden">
-      <div id="wordDisplay"></div>
-      <div id="floatingControls">
-        <button id="pauseBtn">Pausar</button>
-        <button id="resumeBtn">Reanudar</button>
-        <button id="resetBtn">Reset</button>
-        <div id="speedDisplay">Velocidad actual: 0 WPM</div>
-      </div>
+  <!-- FONDO OSCURO FLOTANTE -->
+  <div id="overlay" class="hidden"></div>
+
+  <!-- PANTALLA FLOTANTE DE LECTURA -->
+  <div id="floatingScreen" class="hidden">
+    <div id="wordDisplay"></div>
+    <div id="floatingControls">
+      <button id="pauseBtn">Pausar</button>
+      <button id="resumeBtn">Reanudar</button>
+      <button id="resetBtn">Reset</button>
+      <div id="speedDisplay">Velocidad actual: 0 WPM</div>
     </div>
-
   </div>
 
   <script src="script.js"></script>
