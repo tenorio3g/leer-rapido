@@ -90,15 +90,16 @@ button:active {
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
   z-index: 1001;
-
   width: 500px;    /* ancho fijo */
   height: 300px;   /* alto fijo */
-  
   display: flex;           /* para centrar el contenido */
   flex-direction: column;  /* acomodo vertical */
   justify-content: center; /* centra verticalmente */
   align-items: center;     /* centra horizontalmente */
 }
+
+
+
 
 /* Fondo oscurecido */
 #overlay {
